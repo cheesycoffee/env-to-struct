@@ -20,6 +20,7 @@ OS Environment Values To Struct using "env" tag
   - []uint32
   - []float32
   - []float64
+  - map[string]interface{}
 
 > **example Usage :**
 ```go
