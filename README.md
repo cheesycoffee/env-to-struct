@@ -1,5 +1,5 @@
 # env-to-struct
-OS Environment Values To Struct using "env" tag
+## Golang OS Environment Values To Struct using "env" tag
 
 > **supported data types :**
   - string
@@ -52,7 +52,7 @@ func main() {
 	if err := envtostruct.Set(&env); err != nil {
 		log.Fatal(err)
 	}
-    
+
 }
 ```
 
