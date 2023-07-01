@@ -35,12 +35,12 @@ func main() {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal(err)
 	}
-
+    
     type EnvEmbed struct {
         Data string `env:"ENV_EMBED_DATA"`
     }
-
-	type Env struct{
+    
+    type Env struct{
 		EnvString string `env:"ENV_STRING"`
         EnvSliceString []string `env:"ENV_SLICE_STRING"`
         EnvSliceInt []int `env:"ENV_SLICE_INT"`
@@ -52,9 +52,11 @@ func main() {
 	if err := envtostruct.Set(&env); err != nil {
 		log.Fatal(err)
 	}
+    
 }
 ```
-> example .env file :
+
+> **example .env file :**
 ```
 ENV_STRING="abc"
 ENV_SLICE_STRING="a,b,c"
