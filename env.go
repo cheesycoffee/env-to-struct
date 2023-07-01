@@ -1,6 +1,7 @@
 package envtostruct
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -63,7 +64,6 @@ func Set(structField interface{}) (err error) {
 }
 
 func valueParser(fieldKind reflect.Kind, field reflect.Value, stringValue string) (err error) {
-	fmt.Println(fieldKind)
 	var fieldValue interface{}
 	switch fieldKind {
 
@@ -102,6 +102,10 @@ func valueParser(fieldKind reflect.Kind, field reflect.Value, stringValue string
 
 	case reflect.Slice:
 		fieldValue, err = sliceParser(field.Type().String(), stringValue)
+
+	case reflect.Map:
+		fieldValue = reflect.MakeMap(field.Type())
+		err = json.Unmarshal([]byte(stringValue), &fieldValue)
 
 	default:
 		err = fmt.Errorf("unsupported type %s", fieldKind.String())

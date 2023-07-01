@@ -29,32 +29,34 @@ func TestSet(t *testing.T) {
 	os.Setenv("ENV_EMBED_INT", "1")
 	os.Setenv("ENV_SLICE_EMBED_STRING", "z")
 	os.Setenv("ENV_SLICE_EMBED_INT", "3")
+	os.Setenv("ENV_MAP_STRING_INTERFACE", `{"id" : 123, "name" : "abc", "isActive" : true, "account" : [{"id" : 321, "amount" : 123.45}]}`)
 
 	type EnvEmbed struct {
 		EnvEmbedString string `env:"ENV_EMBED_STRING"`
 		EnvEmbedInt    int    `env:"ENV_EMBED_INT"`
 	}
 	type EnvStruct struct {
-		EnvString       string    `env:"ENV_STRING"`
-		EnvBool         bool      `env:"ENV_BOOL"`
-		EnvInt          int       `env:"ENV_INT"`
-		EnvInt32        int32     `env:"ENV_INT32"`
-		EnvUint32       uint32    `env:"ENV_UINT32"`
-		EnvInt64        int64     `env:"ENV_INT64"`
-		EnvUint64       uint64    `env:"ENV_UINT64"`
-		EnvFloat32      float32   `env:"ENV_FLOAT32"`
-		EnvFloat64      float64   `env:"ENV_FLOAT64"`
-		EnvSliceString  []string  `env:"ENV_SLICE_STRING"`
-		EnvSliceInt     []int     `env:"ENV_SLICE_INT"`
-		EnvSliceInt32   []int32   `env:"ENV_SLICE_INT32"`
-		EnvSliceUint32  []uint32  `env:"ENV_SLICE_UINT32"`
-		EnvSliceInt64   []int64   `env:"ENV_SLICE_INT64"`
-		EnvSliceUint64  []uint64  `env:"ENV_SLICE_UINT64"`
-		EnvSliceFloat32 []float32 `env:"ENV_SLICE_FLOAT32"`
-		EnvSliceFloat64 []float64 `env:"ENV_SLICE_FLOAT64"`
-		EnvSkip         string    `env:"-"`
-		EnvAlsoSkip     string
-		EnvEmbed        EnvEmbed
+		EnvString             string    `env:"ENV_STRING"`
+		EnvBool               bool      `env:"ENV_BOOL"`
+		EnvInt                int       `env:"ENV_INT"`
+		EnvInt32              int32     `env:"ENV_INT32"`
+		EnvUint32             uint32    `env:"ENV_UINT32"`
+		EnvInt64              int64     `env:"ENV_INT64"`
+		EnvUint64             uint64    `env:"ENV_UINT64"`
+		EnvFloat32            float32   `env:"ENV_FLOAT32"`
+		EnvFloat64            float64   `env:"ENV_FLOAT64"`
+		EnvSliceString        []string  `env:"ENV_SLICE_STRING"`
+		EnvSliceInt           []int     `env:"ENV_SLICE_INT"`
+		EnvSliceInt32         []int32   `env:"ENV_SLICE_INT32"`
+		EnvSliceUint32        []uint32  `env:"ENV_SLICE_UINT32"`
+		EnvSliceInt64         []int64   `env:"ENV_SLICE_INT64"`
+		EnvSliceUint64        []uint64  `env:"ENV_SLICE_UINT64"`
+		EnvSliceFloat32       []float32 `env:"ENV_SLICE_FLOAT32"`
+		EnvSliceFloat64       []float64 `env:"ENV_SLICE_FLOAT64"`
+		EnvSkip               string    `env:"-"`
+		EnvAlsoSkip           string
+		EnvEmbed              EnvEmbed
+		EnvMapStringInterface map[string]interface{} `env:"ENV_MAP_STRING_INTERFACE"`
 	}
 
 	env := EnvStruct{}
@@ -85,5 +87,6 @@ func TestSet(t *testing.T) {
 			EnvEmbedString: "x",
 			EnvEmbedInt:    1,
 		})
+		assert.Equal(t, env.EnvMapStringInterface["name"], "abc")
 	})
 }
